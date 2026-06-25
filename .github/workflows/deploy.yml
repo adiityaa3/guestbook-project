@@ -31,11 +31,24 @@ steps:
   - name: Install Helm
     uses: azure/setup-helm@v4
 
+<<<<<<< HEAD
   - name: Update kubeconfig
     run: |
       aws eks update-kubeconfig \
         --region $AWS_REGION \
         --name $EKS_CLUSTER_NAME
+=======
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig \
+            --region $AWS_REGION \
+            --name $EKS_CLUSTER_NAME
+
+      - name: Verify AWS Identity
+        run: |
+          aws sts get-caller-identity
+          aws eks list-clusters --region $AWS_REGION
+>>>>>>> be3d9fc (Fix workflow)
 
   - name: Verify AWS Identity
     run: |

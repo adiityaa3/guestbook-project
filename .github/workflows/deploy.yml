@@ -8,7 +8,6 @@ on:
 env:
   AWS_REGION: us-east-1
   EKS_CLUSTER_NAME: guestbook-cluster
-  DOCKERHUB_IMAGE: adityaisnomore/guestbook-app
 
 jobs:
   build-deploy:
@@ -17,12 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Deploy to EKS
-  run: |
-    helm upgrade --install guestbook . \
-      --namespace guestbook \
-      --create-namespace
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -45,6 +38,6 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          helm upgrade guestbook ./guestbook-chart \
+          helm upgrade --install guestbook . \
             --namespace guestbook \
-            --set web.image.tag=${{ github.sha }}
+            --create-namespace

@@ -35,6 +35,10 @@ jobs:
           aws eks update-kubeconfig \
             --region $AWS_REGION \
             --name $EKS_CLUSTER_NAME
+- name: Verify AWS Identity
+  run: |
+    aws sts get-caller-identity
+    aws eks list-clusters --region $AWS_REGION
 
       - name: Deploy to EKS
         run: |

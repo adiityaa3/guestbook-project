@@ -14,7 +14,6 @@ jobs:
 build-deploy:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout
     uses: actions/checkout@v4
@@ -55,10 +54,9 @@ steps:
         --region $AWS_REGION \
         --name $EKS_CLUSTER_NAME
 
-  - name: Deploy
+  - name: Deploy to EKS
     run: |
       helm upgrade guestbook ./guestbook-chart \
         --namespace guestbook \
         --set web.image.tag=${{ github.sha }}
-```
 

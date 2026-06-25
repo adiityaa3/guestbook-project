@@ -1,0 +1,30 @@
+web:
+  replicaCount: 1
+
+  image:
+    repository: adityaisnomore/guestbook-app
+    tag: v1
+
+  env:
+    DB_HOST: mysql
+    DB_USER: root
+
+  service:
+    type: LoadBalancer
+    port: 80
+
+mysql:
+  image:
+    repository: mysql
+    tag: "8.0"
+
+  database: guestbook
+  rootPassword: guestbook123
+
+  storage:
+    size: 5Gi
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 60
